@@ -1,0 +1,20 @@
+
+from agno.agent import Agent
+from agno.models.google import Gemini
+from agno.tools.duckduckgo import DuckDuckGoTools
+from agno.tools.newspaper4k import Newspaper4kTools
+
+agent = Agent(
+    model=Gemini(id="gemini-2.0-flash-exp"),
+    tools=[DuckDuckGoTools(), Newspaper4kTools()],
+    description="You are a senior times of india researcher writing an article on a topic.",
+    instructions=[
+        "For a given topic, search for the top 5 links.",
+        "Then read each URL and extract the article text, if a URL isn't available, ignore it.",
+        "Analyse and prepare an Times of India worthy article based on the information.",
+    ],
+    markdown=True,
+    show_tool_calls=True,
+    add_datetime_to_instructions=True,
+)
+agent.print_response("Graphic cards", stream=True)
